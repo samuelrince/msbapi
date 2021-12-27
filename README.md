@@ -15,6 +15,36 @@ The key features are:
 This API is designed to be used with a **[my-seedbox.com](https://my-seedbox.com/) instance** running with the 
 **ruTorrent frontend**.
 
+## API Usage
+
+There is only one route `/add-torrent` where you can make a `POST` request sending a JSON containing the `url` of the 
+.torrent file or the magnet link. You can optionally add the type of torrent, this will change the download directory.
+
+```bash
+curl -X 'POST' \
+  'http://localhost:5000/add-torrent' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "url": "https://webtorrent.io/torrents/big-buck-bunny.torrent",
+  "type": "movie"
+}'
+```
+
+### Torrent types
+
+Torrent types are useful to directly change the download directory based on what torrent you are downloading. Torrent 
+types and download paths are not customizable for now, but they are already set up for a my-seedbox.com instance with a 
+Plex server.
+
+| `type`    | Download path                |
+|-----------|------------------------------|
+| `movie`   | `BASE_PATH` + `/Plex/Films`  |
+| `series`  | `BASE_PATH` + `/Plex/Series` |
+| `music`   | `BASE_PATH` + `/music`       |
+| `default` | `BASE_PATH`                  |  
+| null      | `BASE_PATH`                  |
+
 ## Installation
 
 Use the package manager [poetry](https://python-poetry.org/docs/) to install msbapi.
@@ -72,7 +102,7 @@ python -m pytest tests/
 
 ### <a name="accesstoken"></a> How to get your access token
 
-To get you `ACCESS_TOKEN` you will need to log in your ruTorrent interface and the launch the Web Developer Tools from 
+To get your `ACCESS_TOKEN` you will need to log in your ruTorrent interface and the launch the Web Developer Tools from 
 your browser. In the network tab look for a backend call (to `action.php` for instance) and check the request headers.
 You will find an `Authorization` header that contains your `ACCESS_TOKEN` as following:
 
