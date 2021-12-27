@@ -8,6 +8,8 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.9"
 requests = "^2.26.0"
+fastapi = "^0.70.1"
+uvicorn = {version = "^0.16.0", extras = ["standard"]}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
