@@ -33,3 +33,13 @@ def add_torrent_file(torrent_file: bytes, path: Optional[str] = None) -> request
     data = {'torrent_file': torrent_file}
     response = requests.post(url, files=data, headers=HEADERS)
     return response
+
+
+def add_torrent_magnet(torrent_magnet: str, path: Optional[str] = None) -> requests.Response:
+    url = os.getenv('CLIENT_URL') + '/php/addtorrent.php?json=1'
+    if path:
+        dir_edit = urllib.parse.quote(path, safe='') if path else ''
+        url += f'&dir_edit={dir_edit}'
+    data = {'url': torrent_magnet}
+    response = requests.post(url, data=data, headers=HEADERS)
+    return response
