@@ -17,7 +17,7 @@ This API is designed to be used with a **[my-seedbox.com](https://my-seedbox.com
 
 ## Installation
 
-Use the package manager [poetry](https://python-poetry.org/docs/) to install foobar.
+Use the package manager [poetry](https://python-poetry.org/docs/) to install msbapi.
 
 ```bash
 poetry install
