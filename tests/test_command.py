@@ -1,3 +1,5 @@
+import os.path
+
 from msbapi.command import add_torrent_file, add_torrent_magnet
 
 
@@ -14,7 +16,8 @@ def test_add_torrent_file_with_path():
     """Test add a simple torrent file to a specific location"""
     with open('cosmos-laundromat.torrent', 'rb') as f:
         file = f.read()
-    response = add_torrent_file(torrent_file=file, path='/data/client_6729/outp/test/')
+    dl_path = os.path.join(os.getenv('BASE_PATH'), 'test')
+    response = add_torrent_file(torrent_file=file, path=dl_path)
     assert response.status_code == 200
     assert response.json() == {'result': 'Success'}
 
@@ -46,6 +49,7 @@ def test_add_torrent_magnet_with_path():
              '&tr=wss%3A%2F%2Ftracker.openwebtorrent.com' \
              '&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F' \
              '&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Ftears-of-steel.torrent'
-    response = add_torrent_magnet(torrent_magnet=magnet, path='/data/client_6729/outp/test/')
+    dl_path = os.path.join(os.getenv('BASE_PATH'), 'test')
+    response = add_torrent_magnet(torrent_magnet=magnet, path=dl_path)
     assert response.status_code == 200
     assert response.json() == {'result': 'Success'}
